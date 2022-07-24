@@ -1,0 +1,17 @@
+services:
+    dnscrypt:
+        image: cwndev/dnscrypt-server:latest 
+        container_name: dnscrypt
+        restart: always
+        command: "init -N dns.sample.com -E '192.168.1.200:4433' -M 0.0.0.0:9100"
+        environment:
+            - TZ=Europe/London
+            - anondns_enabled=true
+        network_mode: "host"
+        ports:
+            - "4433:4433/udp"
+            - "4433:4433/tcp"
+            - "9100:9100/tcp"
+        volumes:
+            - ./dnscryptdata/zones:/opt/unbound/etc/unbound/zones
+            - ./dnscryptdata/keys:/opt/encrypted-dns/etc/keys
