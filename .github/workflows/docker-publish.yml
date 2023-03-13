@@ -51,7 +51,8 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
-          platforms: 'arm64'
+          image: tonistiigi/binfmt:latest
+          platforms: all
 
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
