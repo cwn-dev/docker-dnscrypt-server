@@ -35,10 +35,10 @@ RUN apt-get update && apt-get install -qy --no-install-recommends $BUILD_DEPS &&
 ENV RUSTFLAGS "-C link-arg=-s"
 
 RUN apt-get update && apt-get install -qy --no-install-recommends $BUILD_DEPS && \
-    curl -sSf https://sh.rustup.rs | bash -s -- -y --default-toolchain stable && \
+    curl -sSf https://sh.rustup.rs | bash -s -- -y --default-toolchain nightly && \
     export PATH="$HOME/.cargo/bin:$PATH" && \
     echo "Compiling encrypted-dns" && \
-    cargo install encrypted-dns && \
+    cargo install encrypted-dns -Z sparse-registry && \
     mkdir -p /opt/encrypted-dns/sbin && \
     mv ~/.cargo/bin/encrypted-dns /opt/encrypted-dns/sbin/ && \
     strip --strip-all /opt/encrypted-dns/sbin/encrypted-dns && \
